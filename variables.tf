@@ -1,7 +1,7 @@
 variable "region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
+  # default     = "us-west-1" # CHANGE ME THEN UNCOMMENT ME!
 }
 variable "my_home_ip" {
   description = "Your home ip. For firewall rules that allow you access to cluster"
