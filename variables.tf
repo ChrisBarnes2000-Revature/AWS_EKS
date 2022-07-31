@@ -11,5 +11,5 @@ variable "my_home_ip" {
 variable "user_name" {
   description = "The aws user name"
   type        = string
-  default     = "bryon" # CHANGE ME!
+  # default     = "bob" # CHANGE ME THEN UNCOMMENT ME!
 }
