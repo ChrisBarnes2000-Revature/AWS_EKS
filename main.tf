@@ -29,7 +29,7 @@ provider "aws" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "${var.user_name}-cluster-${random_string.suffix.result}" #random ensures no cluster repeats.
+  cluster_name = "${var.user_name}-cluster-${random_string.suffix.result}" # random ensures no cluster repeats.
 }
 
 resource "random_string" "suffix" {
