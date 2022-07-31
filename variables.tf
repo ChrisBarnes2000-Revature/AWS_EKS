@@ -6,7 +6,7 @@ variable "region" {
 variable "my_home_ip" {
   description = "Your home ip. For firewall rules that allow you access to cluster"
   type        = string
-  default     = "24.245.76.148/32" # CHANGE ME!
+  # default     = "000.000.000.000/32" # CHANGE ME!
 }
 variable "user_name" {
   description = "The aws user name"
