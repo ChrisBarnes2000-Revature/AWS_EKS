@@ -1,21 +1,28 @@
 controller:
+  jenkinsUriPrefix: /jenkins
   metadata:
     name: ingress-test
     namespace: jenkins
-
   ingress:
     enabled: true
+    path: /jenkins
     annotations:
       # ingressClassName: nginx
       kubernetes.io/ingress.class: nginx
-      kubernetes.io/rewrite-target: jenkins
-      path: "/jenkins"
+      # kubernetes.io/rewrite-target: jenkins
     apiVersion: "extensions/v1"
   installPlugins:
     - kubernetes:3670.v6ca_059233222
     - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - workflow-job:1232.v5a_4c994312f1
     - git:4.11.4
     - configuration-as-code:1512.vb_79d418d5fc8
+    - sshd:3.249.v2dc2ea_416e33
+    - command-launcher:84.v4a_97f2027398
+    - javax-mail-api:1.6.2-7
+    - jdk-tool:55.v1b_32b_6ca_f9ca
     - github:1.34.5
+
+
   agent:
     namespace: jenkins

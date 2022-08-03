@@ -15,12 +15,24 @@ terraform {
 }
 
 
-# The Kubernetes provider is included in this file so the EKS module can complete successfully. Otherwise, it throws an error when creating `kubernetes_config_map.aws_auth`.
-# You should **not** schedule deployments and services in this workspace. This keeps workspaces modular (one for provision EKS, another for scheduling Kubernetes resources) as per best practices.
+data "aws_eks_cluster" "default" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "default" {
+  name = module.eks.cluster_id
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.default.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.default.token
+}
+
 provider "helm" {
   kubernetes {
     host                   = module.eks.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.certificate_authority[0].data)
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
       args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
