@@ -37,30 +37,30 @@ module "vpc" {
   # }
 }
 
-data "aws_security_group" "default" {
-  name   = "${local.cluster_name}-vpc"
-  vpc_id = module.vpc.vpc_id
-}
+# data "aws_security_group" "default" {
+#   name   = "${local.cluster_name}-vpc"
+#   vpc_id = module.vpc.vpc_id
+# }
 
 
 
-# https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest/submodules/vpc-endpoints
-module "endpoints" {
-  source = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
+# # https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest/submodules/vpc-endpoints
+# module "endpoints" {
+#   source = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
 
-  vpc_id             = module.vpc.vpc_id
-  security_group_ids = [data.aws_security_group.default.id]
+#   vpc_id             = module.vpc.vpc_id
+#   security_group_ids = [data.aws_security_group.default.id]
 
-  endpoints = {
-    ec2 = {
-      service             = "ec2"
-      private_dns_enabled = true
-      subnet_ids          = module.vpc.private_subnets
-      security_group_ids  = [data.aws_security_group.default.id]
-    }
-  }
+#   endpoints = {
+#     ec2 = {
+#       service             = "ec2"
+#       private_dns_enabled = true
+#       subnet_ids          = module.vpc.private_subnets
+#       security_group_ids  = [data.aws_security_group.default.id]
+#     }
+#   }
 
-  tags = {
-    Name = "ec2-endpoints"
-  }
-}
+#   tags = {
+#     Name = "ec2-endpoints"
+#   }
+# }

@@ -1,8 +1,9 @@
 controller:
   jenkinsUrlProtocol: "/jenkins"
+  # serviceType: LoadBalancer
   installPlugins:
-    - kubernetes:1.31.3
-    - workflow-aggregator:2.6
-    - git:4.10.2
-    - configuration-as-code:1414.v878271fc496f
+    - kubernetes:3670.v6ca_059233222
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - git:4.11.4
+    - configuration-as-code:1512.vb_79d418d5fc8
     - github:1.34.5

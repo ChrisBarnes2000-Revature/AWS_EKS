@@ -1,7 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "jenkins-ingress"
+  name: my-jenkins
+  namespace: default
 spec:
   rules:
   - http:

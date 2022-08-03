@@ -44,13 +44,13 @@ module "eks" {
   }
 
   # cluster t3.large x 2
-  eks_managed_node_group_defaults = {
-    ami_type       = "AL2_x86_64"
-    instance_types = ["t2.micro"]
+  # eks_managed_node_group_defaults = {
+  #   ami_type       = "AL2_x86_64"
+  #   instance_types = ["t2.micro"]
 
-    attach_cluster_primary_security_group = true
-    vpc_security_group_ids                = [aws_security_group.default.id]
-  }
+  #   # attach_cluster_primary_security_group = true
+  #   # vpc_security_group_ids                = [aws_security_group.default.id]
+  # }
 
   eks_managed_node_groups = {
     default_node_group = {
@@ -73,7 +73,7 @@ module "eks" {
     }
   }
   # aws-auth configmap
-  manage_aws_auth_configmap = true
+  # manage_aws_auth_configmap = true
   # COE provided
   # aws_auth_users = [
   #   {
