@@ -1,9 +1,13 @@
 controller:
-  jenkinsUrlProtocol: "/jenkins"
-  # serviceType: LoadBalancer
-  installPlugins:
-    - kubernetes:3670.v6ca_059233222
-    - workflow-aggregator:590.v6a_d052e5a_a_b_5
-    - git:4.11.4
-    - configuration-as-code:1512.vb_79d418d5fc8
-    - github:1.34.5
+  jenkinsUriPrefix: /jenkins
+  ingress:
+    enabled: true
+    apiVersion: "extensions/v1"
+    path: /jenkins
+    annotations:
+      # ingressClassName: nginx
+      kubernetes.io/ingress.class: nginx
+  additionalPlugins:
+  - github:1.34.5
+  agent:
+    namespace: jenkins

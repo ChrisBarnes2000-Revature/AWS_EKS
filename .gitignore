@@ -1,6 +1,5 @@
 .terraform*
 terraform.t*
-!.terraform.lock.hcl
 .ssh
 secret*
 authorized_keys
