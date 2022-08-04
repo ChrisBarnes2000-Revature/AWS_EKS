@@ -2,7 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: flask-app
-  namespace: app
   labels:
     app: flask-app
 spec:
@@ -33,8 +32,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: flask-ui
-  namespace: app
+  name: flask-service
 spec:
   # type: NodePort
   selector:
@@ -44,26 +42,26 @@ spec:
       port: 80
       targetPort: 5000
       name: flask-default-port
----
-# Ingress-Nginx
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: flask-app
-  namespace: app
-  # annotations:
-    # nginx.ingress.kubernetes.io/rewrite-target: /app
-spec:
-  ingressClassName: nginx
-  rules:
-  - http:
-      paths:
-      - path: /app
-        pathType: Prefix
-        backend:
-          service:
-            name: flask-ui
-            port:
-              number: 80
+# ---
+# # Ingress-Nginx
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: flask-app
+#   namespace: app
+#   # annotations:
+#     # nginx.ingress.kubernetes.io/rewrite-target: /app
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - http:
+#       paths:
+#       - path: /app
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: flask-ui
+#             port:
+#               number: 80
               
 
