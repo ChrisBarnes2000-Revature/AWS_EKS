@@ -54,7 +54,7 @@ controller:
   # This values should not be changed unless you use your custom image of jenkins or any devired from. If you want to use
   # Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution"
   jenkinsHome: "/var/jenkins_home"
-  # This values should not be changed unless you use your custom image of jenkins or any devired from. If you want to use
+  # This values should not be changed unless you use your custom image of jenkins or any devired from. If you want to use 
   # Cloudbees Jenkins Distribution docker, you should set jenkinsRef: "/usr/share/cloudbees-jenkins-distribution/ref"
   jenkinsRef: "/usr/share/jenkins/ref"
   # Path to the jenkins war file which is used by jenkins-plugin-cli.
