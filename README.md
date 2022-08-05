@@ -75,6 +75,62 @@ kubectl apply -f apps/flask.yaml -n app
 kubectl apply -f apps/tea-coffee.yaml -n app
 # check ingress
 kubectl describe ingress -n app
+# Name:             ab-ingress
+# Labels:           <none>
+# Namespace:        app
+# Address:          addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
+# Ingress Class:    nginx
+# Default backend:  <default>
+# Rules:
+#   Host        Path  Backends
+#   ----        ----  --------
+#   *           
+#               /apple    apple-service:5678 (10.0.2.228:5678)
+#               /banana   banana-service:5678 (10.0.2.9:5678)
+# Annotations:  ingressClassName: nginx
+# Events:
+#   Type    Reason  Age                    From                      Message
+#   ----    ------  ----                   ----                      -------
+#   Normal  Sync    4m36s (x2 over 4m57s)  nginx-ingress-controller  Scheduled for sync
+
+
+# Name:             cafe-ingress
+# Labels:           <none>
+# Namespace:        app
+# Address:          addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
+# Ingress Class:    nginx
+# Default backend:  <default>
+# Rules:
+#   Host        Path  Backends
+#   ----        ----  --------
+#   *           
+#               /coffee   coffee-svc:80 (10.0.2.213:80,10.0.2.32:80)
+#               /tea      tea-svc:80 (10.0.2.11:80,10.0.2.190:80,10.0.2.215:80)
+# Annotations:  ingressClassName: nginx
+#               nginx.ingress.kubernetes.io/rewrite-target: /
+# Events:
+#   Type    Reason  Age                    From                      Message
+#   ----    ------  ----                   ----                      -------
+#   Normal  Sync    2m37s (x2 over 3m36s)  nginx-ingress-controller  Scheduled for sync
+
+
+# Name:             flask-ingress
+# Labels:           <none>
+# Namespace:        app
+# Address:          addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
+# Ingress Class:    nginx
+# Default backend:  <default>
+# Rules:
+#   Host        Path  Backends
+#   ----        ----  --------
+#   *           
+#               /flask   flask-service:80 (10.0.2.105:5000)
+# Annotations:  ingressClassName: nginx
+# Events:
+#   Type    Reason  Age                    From                      Message
+#   ----    ------  ----                   ----                      -------
+#   Normal  Sync    3m37s (x2 over 3m46s)  nginx-ingress-controller  Scheduled for sync
+
 
 
 # install jenkins
