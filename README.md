@@ -12,6 +12,9 @@ Simple template to start AWS EKS Cluster
 ```
 2. Install Terraform
 ```sh
+# you should make ssh files
+mkdir .ssh && ssh-keygen -t rsa -f ./.ssh/id_rsa
+
 # https://www.terraform.io/downloads
 # I had problems with their keyring. Install from binary:
 sudo apt-get install -y tar unzip
@@ -30,7 +33,7 @@ terraform
 
 3. Add your info in the terraform variables.tf file.
 ```sh
-  change cluster size and amounts in the eks-cluster-tf file
+  change cluster size and amounts in the 'eks-cluster-tf' file
 ```
 
 4. Run terraform
