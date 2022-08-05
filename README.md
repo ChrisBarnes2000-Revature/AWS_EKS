@@ -57,12 +57,10 @@ aws eks list-clusters
 # https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
 kubectl create ns nginx
 helm upgrade --install ingress-nginx-chart ingress-nginx/ingress-nginx --version 4.2.0 -n nginx
-
 # aws ingress setup takes a few minutes.
 kubectl --namespace nginx get services -o wide -w ingress-nginx-chart-controller
 # going to the aws address should return 404 not found. You know endpoint is working and ingress controller is responding. 
 # curl -i http://YOUR-ADDRESS-us-east-1.elb.amazonaws.com
-
 # install ingress class name
 kubectl apply -f ingress/ingress-class.yaml -n nginx
 
