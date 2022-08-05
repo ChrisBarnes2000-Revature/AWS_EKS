@@ -1,5 +1,5 @@
 # terraform_aws_eks
-Simple template to start AWS EKS Cluster
+Simple Terraform template to start AWS EKS Cluster with ingress-nginx controller
 
 # Start Here:
 ```sh
