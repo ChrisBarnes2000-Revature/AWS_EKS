@@ -2,6 +2,10 @@
 Simple template to start AWS EKS Cluster
 
 # Start Here:
+```sh
+git clone https://github.com/webmastersmith/terraform_aws_eks.git
+cd terraform_aws_eks
+```
 1. You must have `aws` installed:
 ```sh
   aws sts get-caller-identity  # make sure your NOT 2206-devops-user
