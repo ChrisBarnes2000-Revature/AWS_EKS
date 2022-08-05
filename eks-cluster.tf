@@ -8,9 +8,10 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = "1.22"
 
-  vpc_id                   = module.vpc.vpc_id
-  subnet_ids               = module.vpc.private_subnets
-  control_plane_subnet_ids = module.vpc.private_subnets
+  vpc_id                          = module.vpc.vpc_id
+  subnet_ids                      = module.vpc.private_subnets
+  control_plane_subnet_ids        = module.vpc.private_subnets
+  cluster_endpoint_private_access = true
 
   # cluster_security_group_additional_rules = {
   #   egress_nodes_ephemeral_ports_tcp = {
@@ -43,31 +44,27 @@ module "eks" {
   #   }
   # }
 
-  # cluster t3.large x 2
-  # eks_managed_node_group_defaults = {
-  #   ami_type       = "AL2_x86_64"
-  #   instance_types = ["t2.micro"]
 
-  #   # attach_cluster_primary_security_group = true
-  #   # vpc_security_group_ids                = [aws_security_group.default.id]
-  # }
+  # attach these sg rules to control plane
+  cluster_additional_security_group_ids = [aws_security_group.all_sg.id]
 
   eks_managed_node_groups = {
     default_node_group = {
       # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
       # so we need to disable it to use the default template provided by the AWS EKS managed node group service
-      min_size               = 1
-      max_size               = 1
-      desired_size           = 1
-      create_launch_template = false
-      launch_template_name   = ""
-      ami_type               = "AL2_x86_64"
-      instance_types         = ["t3.medium"]
+      min_size                             = 1
+      max_size                             = 1
+      desired_size                         = 1
+      create_launch_template               = false
+      launch_template_name                 = ""
+      instance_types                       = ["t3.medium"]
+      ami_id                               = "ami-052efd3df9dad4825" # ubuntu 22.04 LTS server optimized for eks.
+      node_security_group_additional_rules = [aws_security_group.worker_group_node.id]
+      # ami_type               = "AL2_x86_64" # Amazon linux ec2.
       # disk_size              = 50
-      # ami_id                 = "ami-052efd3df9dad4825"
       # capacity_type          = "SPOT"
-      # Remote access cannot be specified with a launch templatecd 
 
+      # Remote access key
       remote_access = {
         ec2_ssh_key = aws_key_pair.ssh_access_key.key_name
       }
@@ -89,6 +86,8 @@ module "eks" {
     Terraform = "true"
   }
 } # end module eks
+
+
 
 # resource "aws_iam_user" "eks-user" {
 #   name = "2206-devops-user"

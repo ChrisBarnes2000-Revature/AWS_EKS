@@ -15,26 +15,23 @@ module "vpc" {
   manage_default_route_table = true
   default_route_table_tags   = { Name = "default-route-table" }
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
-  # enable_dns_hostnames = true
-
-  public_subnet_tags = {
-    Name = "public-subnet"
-  }
+  enable_nat_gateway   = true
+  single_nat_gateway   = true
+  enable_dns_hostnames = true
 
   vpc_tags = {
     Name = "${var.user_name}-vpc"
   }
-  # public_subnet_tags = {
-  #   "kubernetes.io/cluster/${local.cluster_name}" = "shared"
-  #   "kubernetes.io/role/elb"                      = 1
-  # }
 
-  # private_subnet_tags = {
-  #   "kubernetes.io/cluster/${local.cluster_name}" = "shared"
-  #   "kubernetes.io/role/internal-elb"             = 1
-  # }
+  public_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                      = 1
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"             = 1
+  }
 }
 
 # data "aws_security_group" "default" {
