@@ -1,0 +1,17 @@
+controller:
+  # aws address
+  jenkinsUrl: http://a09f84e2ef8f0460f8e84a8fc1f36ee9-222515066.us-east-1.elb.amazonaws.com
+  # ingress. tell jenkins your using ingress routes.
+  jenkinsUriPrefix: /jenkins
+  ingress:
+    enabled: true
+    apiVersion: "extensions/v1"
+    # ingress controller watches for this path on URI.
+    path: /jenkins
+    annotations:
+      ingressClassName: nginx
+      # kubernetes.io/ingress.class: nginx
+  additionalPlugins:
+  - github:1.34.5
+  agent:
+    namespace: jenkins
