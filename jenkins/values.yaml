@@ -64,7 +64,7 @@ controller:
   #   - --httpPort=8080 
   resources:
     requests:
-      cpu: "50m"
+      cpu: "50m" 
       memory: "256Mi"
     limits:
       cpu: "2000m"
