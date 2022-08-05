@@ -62,7 +62,7 @@ controller:
   # Overrides the default arguments passed to the war 
   # overrideArgs: 
   #   - --httpPort=8080 
-  resources:
+  resources: 
     requests:
       cpu: "50m" 
       memory: "256Mi"
