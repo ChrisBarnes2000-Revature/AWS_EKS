@@ -40,6 +40,35 @@ terraform init
 terraform plan
 # will make the 
 terraform apply
+```
+
+5. Install
+```sh
+# install nginx
+kubectl create ns nginx
+
+
+# install jenkins
+kubectl create ns jenkins
+# https://artifacthub.io/packages/helm/jenkinsci/jenkins
+helm install my-jenkins jenkinsci/jenkins --version 4.1.13 -n jenkins -f jenkins/jenkins.yaml
+
+# install apps
+
+```
+
+
+6. Destroy Cluster
+```sh
+# Remove helm items:
+
+# Remove namespaces and all content
+
+# destroy all terraform infrastructure
 terraform destroy
 ```
 
+7. Double check all items destroyed. # The dashboard should be zero. Use the search bar at top of screen.
+  - ec2
+  - eks  # cluster should empty
+  - vpc  # DHCP option sets will show 1. It's the dns service offered by aws and does not cost any money.
