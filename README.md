@@ -21,7 +21,7 @@ chmod +x terraform && mv terraform $HOME/.local/bin/
 
 # check if terraform in $PATH
 terraform
-```  <br /><br />
+```
 
 3. Change the terraform variables.tf file to your info
   - change cluster size and amounts in the `eks-cluster-tf` file
