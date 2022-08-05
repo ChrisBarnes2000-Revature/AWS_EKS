@@ -60,7 +60,7 @@ controller:
   # Path to the jenkins war file which is used by jenkins-plugin-cli.
   jenkinsWar: "/usr/share/jenkins/jenkins.war"
   # Overrides the default arguments passed to the war 
-  # overrideArgs:
+  # overrideArgs: 
   #   - --httpPort=8080 
   resources:
     requests:
