@@ -19,12 +19,19 @@ curl -o /tmp/terraform.zip -LO https://releases.hashicorp.com/terraform/1.2.6/te
 unzip /tmp/terraform.zip
 chmod +x terraform && mv terraform $HOME/.local/bin/
 
+# if $HOME/.local/bin does not exist
+# mkdir -p $HOME/.local/bin
+# add terraform to $PATH
+# export PATH=$PATH:$HOME/.local/bin
+
 # check if terraform in $PATH
 terraform
 ```
-
-3. Change the terraform variables.tf file to your info
+```diff
++ 3. Add your info in the terraform variables.tf file.
   - change cluster size and amounts in the `eks-cluster-tf` file
+```
+
 4. Run terraform
 ```sh
 # Download modules
@@ -35,3 +42,4 @@ terraform plan
 terraform apply
 terraform destroy
 ```
+
