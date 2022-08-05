@@ -82,20 +82,26 @@ kubectl describe ingress -n app
 # install jenkins
 kubectl create ns jenkins
 # https://artifacthub.io/packages/helm/jenkinsci/jenkins
-helm install my-jenkins jenkinsci/jenkins --version 4.1.13 -n jenkins -f jenkins/jenkins.yaml
-
-
+helm upgrade --install my-jenkins jenkinsci/jenkins --version 4.1.13 -n jenkins -f jenkins/jenkins.yaml
+# get password.  user is 'admin'  awsAddress/jenkins
+kubectl exec --namespace jenkins -it svc/my-jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
+# login and update plugins. restart
 ```
 
 
 7. Destroy Cluster
 ```sh
 # Remove helm items:
+helm uninstall ingress-nginx-chart
+helm uninstall my-jenkins
 
 # Remove namespaces and all content
+kubectl delete ns nginx
+kubectl delete ns jenkins
+kubectl delete ns app
 
 # destroy all terraform infrastructure
-terraform destroy
+terraform destroy --auto-approve
 ```
 
 8. Double check all items destroyed. # The dashboard should be zero. Use the search bar at top of screen.
