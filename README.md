@@ -29,8 +29,8 @@ terraform
 ```
 
 3. Add your info in the terraform variables.tf file.
-```diff
-  + change cluster size and amounts in the eks-cluster-tf file
+```sh
+  change cluster size and amounts in the eks-cluster-tf file
 ```
 
 4. Run terraform
