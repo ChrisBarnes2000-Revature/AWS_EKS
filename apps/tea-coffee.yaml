@@ -13,7 +13,14 @@ spec:
         app: coffee
     spec:
       containers:
-      - name: coffee
+      - resources:
+          requests:
+            cpu: "50m"
+            memory: "256Mi"
+          limits:
+            cpu: "2000m"
+            memory: "4096Mi"
+        name: coffee
         image: nginxdemos/hello:latest
         ports:
         - containerPort: 80
@@ -46,7 +53,14 @@ spec:
         app: tea 
     spec:
       containers:
-      - name: tea 
+      - resources:
+          requests:
+            cpu: "50m"
+            memory: "256Mi"
+          limits:
+            cpu: "2000m"
+            memory: "4096Mi"
+        name: tea 
         image: nginxdemos/hello:latest
         ports:
         - containerPort: 80
@@ -69,6 +83,7 @@ kind: Ingress
 metadata:
   name: cafe-ingress
   annotations:
+    ingressClassName: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx

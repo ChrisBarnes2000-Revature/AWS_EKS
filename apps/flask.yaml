@@ -43,15 +43,12 @@ spec:
       targetPort: 5000
       name: flask-default-port
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: app
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flask-ingress
+  annotations:
+    ingressClassName: nginx
 spec:
   # tls:
   # - hosts:

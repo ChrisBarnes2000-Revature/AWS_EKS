@@ -6,10 +6,17 @@ metadata:
     app: apple
 spec:
   containers:
-    - name: apple-app
-      image: hashicorp/http-echo
-      args:
-        - "-text=apple"
+  - resources:
+      requests:
+        cpu: "50m"
+        memory: "256Mi"
+      limits:
+        cpu: "2000m"
+        memory: "4096Mi"
+    name: apple-app
+    image: hashicorp/http-echo
+    args:
+      - "-text=apple"
 
 ---
 kind: Service
@@ -51,8 +58,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ab-ingress
-  # annotations:
-#    ingress.kubernetes.io/rewrite-target: /
+  annotations:
+    ingressClassName: nginx
+    # ingress.kubernetes.io/rewrite-target: /
     # nginx.ingress.kubernetes.io/ssl-redirect: "false"
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
     # nginx.ingress.kubernetes.io/rewrite-target: /

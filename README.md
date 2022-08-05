@@ -53,16 +53,31 @@ aws eks list-clusters
 
 6. Install Apps
 ```sh
-# install nginx
+# install nginx in it's own namespace
 # https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
 kubectl create ns nginx
-helm upgrade --install ingress-nginx-chart ingress-nginx/ingress-nginx -n nginx
+helm upgrade --install ingress-nginx-chart ingress-nginx/ingress-nginx --version 4.2.0 -n nginx
+
+# aws ingress setup takes a few minutes.
+kubectl --namespace nginx get services -o wide -w ingress-nginx-chart-controller
+# going to the aws address should return 404 not found. You know endpoint is working and ingress controller is responding. 
+# curl -i http://YOUR-ADDRESS-us-east-1.elb.amazonaws.com
+
+# install ingress class name
+kubectl apply -f ingress/ingress-class.yaml -n nginx
 
 # install apps
 kubectl create ns app
+# awsAddress/apple, awsAddress/banana
 kubectl apply -f apps/apple-banana.yaml -n app
+# awsAddress/flask
 kubectl apply -f apps/flask.yaml -n app
+# awsAddress/tea, awsAddress/coffee
 kubectl apply -f apps/tea-coffee.yaml -n app
+# check ingress
+kubectl describe ingress -n app
+
+
 
 # install jenkins
 kubectl create ns jenkins
