@@ -78,7 +78,7 @@ kubectl describe ingress -n app
 # Name:             ab-ingress
 # Labels:           <none>
 # Namespace:        app
-# Address:          addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
+# Address:          REDACTED-1924653928.us-east-1.elb.amazonaws.com
 # Ingress Class:    nginx
 # Default backend:  <default>
 # Rules:
@@ -97,7 +97,7 @@ kubectl describe ingress -n app
 # Name:             cafe-ingress
 # Labels:           <none>
 # Namespace:        app
-# Address:          addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
+# Address:          REDACTED-1924653928.us-east-1.elb.amazonaws.com
 # Ingress Class:    nginx
 # Default backend:  <default>
 # Rules:
@@ -117,7 +117,7 @@ kubectl describe ingress -n app
 # Name:             flask-ingress
 # Labels:           <none>
 # Namespace:        app
-# Address:          addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
+# Address:          REDACTED.us-east-1.elb.amazonaws.com
 # Ingress Class:    nginx
 # Default backend:  <default>
 # Rules:
