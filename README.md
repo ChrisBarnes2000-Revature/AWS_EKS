@@ -64,6 +64,7 @@ kubectl --namespace nginx get services -o wide -w ingress-nginx-chart-controller
 # install ingress class name
 kubectl apply -f ingress/ingress-class.yaml -n nginx
 
+
 # install apps
 kubectl create ns app
 # awsAddress/apple, awsAddress/banana
@@ -74,7 +75,6 @@ kubectl apply -f apps/flask.yaml -n app
 kubectl apply -f apps/tea-coffee.yaml -n app
 # check ingress
 kubectl describe ingress -n app
-
 
 
 # install jenkins
@@ -102,7 +102,7 @@ kubectl delete ns app
 terraform destroy --auto-approve
 ```
 
-8. Double check all items destroyed. # The dashboard should be zero. Use the search bar at top of screen.
+8. Double check all items destroyed. # The dashboard's should be zero. Use the search bar at top of screen.
   - ec2
   - eks  # cluster should empty
   - vpc  # DHCP option sets will show 1. It's the dns service offered by aws and does not cost any money.
