@@ -6,13 +6,13 @@ controller:
   jenkinsUriPrefix: /jenkins
   ingress:
     enabled: true
-    apiVersion: "extensions/v1"
+    apiVersion: 'extensions/v1'
     # ingress controller watches for this path on URI.
     path: /jenkins
     annotations:
       ingressClassName: nginx
       # kubernetes.io/ingress.class: nginx
   additionalPlugins:
-  - github:1.34.5
+    - github:1.34.5
   agent:
     namespace: jenkins

@@ -6,17 +6,17 @@ metadata:
     app: apple
 spec:
   containers:
-  - resources:
-      requests:
-        cpu: "50m"
-        memory: "256Mi"
-      limits:
-        cpu: "2000m"
-        memory: "4096Mi"
-    name: apple-app
-    image: hashicorp/http-echo
-    args:
-      - "-text=apple"
+    - resources:
+        requests:
+          cpu: '50m'
+          memory: '256Mi'
+        limits:
+          cpu: '2000m'
+          memory: '4096Mi'
+      name: apple-app
+      image: hashicorp/http-echo
+      args:
+        - '-text=apple'
 
 ---
 kind: Service
@@ -27,7 +27,7 @@ spec:
   selector:
     app: apple
   ports:
-    - port: 5678 # Default port for image	
+    - port: 5678 # Default port for image
 
 ---
 kind: Pod
@@ -38,17 +38,17 @@ metadata:
     app: banana
 spec:
   containers:
-  - resources:
-      requests:
-        cpu: "50m"
-        memory: "256Mi"
-      limits:
-        cpu: "2000m"
-        memory: "4096Mi"
-    name: banana-app
-    image: hashicorp/http-echo
-    args:
-      - "-text=banana"
+    - resources:
+        requests:
+          cpu: '50m'
+          memory: '256Mi'
+        limits:
+          cpu: '2000m'
+          memory: '4096Mi'
+      name: banana-app
+      image: hashicorp/http-echo
+      args:
+        - '-text=banana'
 ---
 kind: Service
 apiVersion: v1
@@ -76,20 +76,20 @@ spec:
   #   - anthonycornell.com
   #   secretName: tls-secret
   rules:
-  # - host: anthonycornell.com
-  - http:
-      paths:
-        - path: /apple
-          pathType: Prefix
-          backend:
-            service:
-              name: apple-service
-              port: 
-                number: 5678
-        - path: /banana
-          pathType: Prefix
-          backend:
-            service:
-              name: banana-service
-              port:
-                number: 5678
+    # - host: anthonycornell.com
+    - http:
+        paths:
+          - path: /apple
+            pathType: Prefix
+            backend:
+              service:
+                name: apple-service
+                port:
+                  number: 5678
+          - path: /banana
+            pathType: Prefix
+            backend:
+              service:
+                name: banana-service
+                port:
+                  number: 5678

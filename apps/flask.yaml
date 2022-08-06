@@ -15,18 +15,18 @@ spec:
         app: flask-app
     spec:
       containers:
-      - resources:
-          requests:
-            cpu: "50m"
-            memory: "256Mi"
-          limits:
-            cpu: "2000m"
-            memory: "4096Mi"
-        name: flask-app
-        image: bryonsmith/flaskapp-demo:v1
-        ports:
-          - name: flask-port
-            containerPort: 5000
+        - resources:
+            requests:
+              cpu: '50m'
+              memory: '256Mi'
+            limits:
+              cpu: '2000m'
+              memory: '4096Mi'
+          name: flask-app
+          image: bryonsmith/flaskapp-demo:v1
+          ports:
+            - name: flask-port
+              containerPort: 5000
 ---
 # jenkins http port for ui
 kind: Service
@@ -55,14 +55,13 @@ spec:
   #   - anthonycornell.com
   #   secretName: tls-secret
   rules:
-  # - host: anthonycornell.com
-  - http:
-      paths:
-        - path: /flask
-          pathType: Prefix
-          backend:
-            service:
-              name: flask-service
-              port:
-                number: 80
-
+    # - host: anthonycornell.com
+    - http:
+        paths:
+          - path: /flask
+            pathType: Prefix
+            backend:
+              service:
+                name: flask-service
+                port:
+                  number: 80
