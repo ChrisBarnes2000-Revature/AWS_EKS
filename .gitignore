@@ -5,3 +5,6 @@ secret*
 authorized_keys
 gac.sh
 avoid
+
+tf.plan
+Output.log
