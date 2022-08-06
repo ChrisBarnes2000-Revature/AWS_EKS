@@ -1,20 +1,26 @@
 # terraform_aws_eks
+
 Simple Terraform template to start AWS EKS cluster with ingress-nginx controller
 
 # Start Here:
+
 ```sh
 git clone https://github.com/webmastersmith/terraform_aws_eks.git
 cd terraform_aws_eks
 ```
+
 1. You must have `aws` installed:
+
 ```sh
   aws sts get-caller-identity  # make sure your NOT 2206-devops-user
-  
+
   # if your 2206-devops-user, reset credentials
   aws configure
   # To get new aws credentials, login / click on your name / security credentials / access keys / create new access key.
 ```
+
 2. Install Terraform
+
 ```sh
 # you should make ssh files
 mkdir .ssh && ssh-keygen -t rsa -f ./.ssh/id_rsa
@@ -36,21 +42,26 @@ terraform
 ```
 
 3. Add your info in the terraform variables.tf file.
+
 ```sh
   change cluster size and amounts in the 'eks-cluster-tf' file
 ```
 
 4. Run terraform
+
 ```sh
-# Download modules
+# Download & initialize modules from terraform configuration
 terraform init
-# dry run to find errors
-terraform plan
-# will make the 
-terraform apply
+# Validate terraform configuration
+terraform validate
+# Create terraform plan - Dry run to find errors
+terraform plan -out state.tfplan
+# Apply terraform plan -- will make the cluster & modules
+terraform apply state.tfplan
 ```
 
 5. Get kubeconfig file from aws
+
 ```sh
 aws eks update-kubeconfig --name CLUSTER_NAME
 
@@ -59,6 +70,7 @@ aws eks list-clusters
 ```
 
 6. Install Apps
+
 ```sh
 # install nginx in it's own namespace
 # https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
@@ -66,7 +78,7 @@ kubectl create ns nginx
 helm upgrade --install ingress-nginx-chart ingress-nginx/ingress-nginx --version 4.2.0 -n nginx
 # aws ingress setup takes a few minutes.
 kubectl --namespace nginx get services -o wide -w ingress-nginx-chart-controller
-# going to the aws address should return 404 not found. You know endpoint is working and ingress controller is responding. 
+# going to the aws address should return 404 not found. You know endpoint is working and ingress controller is responding.
 # curl -i http://YOUR-ADDRESS-us-east-1.elb.amazonaws.com
 # install ingress class name
 kubectl apply -f ingress/ingress-class.yaml -n nginx
@@ -91,7 +103,7 @@ kubectl describe ingress -n app
 # Rules:
 #   Host        Path  Backends
 #   ----        ----  --------
-#   *           
+#   *
 #               /apple    apple-service:5678 (10.0.2.228:5678)
 #               /banana   banana-service:5678 (10.0.2.9:5678)
 # Annotations:  ingressClassName: nginx
@@ -110,7 +122,7 @@ kubectl describe ingress -n app
 # Rules:
 #   Host        Path  Backends
 #   ----        ----  --------
-#   *           
+#   *
 #               /coffee   coffee-svc:80 (10.0.2.213:80,10.0.2.32:80)
 #               /tea      tea-svc:80 (10.0.2.11:80,10.0.2.190:80,10.0.2.215:80)
 # Annotations:  ingressClassName: nginx
@@ -130,7 +142,7 @@ kubectl describe ingress -n app
 # Rules:
 #   Host        Path  Backends
 #   ----        ----  --------
-#   *           
+#   *
 #               /flask   flask-service:80 (10.0.2.105:5000)
 # Annotations:  ingressClassName: nginx
 # Events:
@@ -149,8 +161,8 @@ kubectl exec --namespace jenkins -it svc/my-jenkins -c jenkins -- /bin/cat /run/
 # login and update plugins. restart
 ```
 
-
 7. Destroy Cluster
+
 ```sh
 # Remove helm items:
 helm uninstall ingress-nginx-chart
@@ -166,6 +178,7 @@ terraform destroy --auto-approve
 ```
 
 8. Double check all items destroyed. # The dashboard's should be zero. Use the search bar at top of screen.
-  - ec2
-  - eks  # cluster should empty
-  - vpc  # DHCP option sets will show 1. It's the dns service offered by aws and does not cost any money.
+
+- ec2
+- eks  # cluster should empty
+- vpc  # DHCP option sets will show 1. It's the dns service offered by aws and does not cost any money.
