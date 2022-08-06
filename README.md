@@ -173,7 +173,7 @@ kubectl delete ns nginx
 kubectl delete ns jenkins
 kubectl delete ns app
 
-# destroy all terraform infrastructure
+# Destroy all terraform infrastructure
 terraform destroy --auto-approve
 ```
 
@@ -182,3 +182,29 @@ terraform destroy --auto-approve
 - ec2
 - eks  # cluster should empty
 - vpc  # DHCP option sets will show 1. It's the dns service offered by aws and does not cost any money.
+
+---
+
+Extra proficeny add these aliases
+
+```sh
+# Download & initialize modules from terraform configuration
+alias TI="terraform init -no-color |& tee Output.log && echo "---" >> Output.log"
+
+# Validate terraform configuration
+alias TV="terraform validate -no-color |& tee -a Output.log && echo "---" >> Output.log"
+
+# Create terraform plan - Dry run to find errors
+alias TP="terraform plan -out state.tfplan -var-file=secrets.tfvars -no-color |& tee -a Output.log && echo "---" >> Output.log"
+# Apply terraform plan -- will make the cluster & modules
+alias TAP="terraform apply -out state.tfplan -var-file=secrets.tfvars -no-color |& tee -a Output.log && echo "---" >> Output.log"
+
+# Apply terraform Configuration without plan -- will make the cluster & modules
+alias TAA="terraform apply -var-file=secrets.tfvars -no-color -auto-approve |& tee -a Output.log && echo "---" >> Output.log"
+
+# Destroy all terraform infrastructure
+alias TD="terraform destroy -var-file=secrets.tfvars -no-color -auto-approve |& tee -a Output.log"
+
+# Remove all terraform infrastructure
+alias TR="rm Output.log && rm -rf .terraform && rm .terraform.lock.hcl && rm terraform.tfstate"
+```
