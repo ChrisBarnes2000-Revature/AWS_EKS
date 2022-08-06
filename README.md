@@ -41,10 +41,10 @@ chmod +x terraform && mv terraform $HOME/.local/bin/
 terraform
 ```
 
-3. Add your info in the terraform variables.tf file.
+3. Add your info in the terraform `variables.tf` file.
 
 ```sh
-  change cluster size and amounts in the 'eks-cluster-tf' file
+  change cluster size and number of instances in the 'eks-cluster-tf' file
 ```
 
 4. Run terraform
@@ -56,7 +56,7 @@ terraform init
 terraform validate
 # Create terraform plan - Dry run to find errors
 terraform plan -out state.tfplan
-# Apply terraform plan -- will make the cluster & modules
+# Apply terraform plan -- will make the infrastructure (cluster, modules, & Pods) on aws.
 terraform apply state.tfplan
 ```
 
@@ -79,18 +79,16 @@ helm upgrade --install ingress-nginx-chart ingress-nginx/ingress-nginx --version
 # aws ingress setup takes a few minutes.
 kubectl --namespace nginx get services -o wide -w ingress-nginx-chart-controller
 # going to the aws address should return 404 not found. You know endpoint is working and ingress controller is responding.
-# curl -i http://YOUR-ADDRESS-us-east-1.elb.amazonaws.com
-# install ingress class name
-kubectl apply -f ingress/ingress-class.yaml -n nginx
+# paste address into browser or curl -i http://YOUR-ADDRESS-us-east-1.elb.amazonaws.com
 
 
 # install apps
 kubectl create ns app
-# awsAddress/apple, awsAddress/banana
+# Routes: awsAddress/apple, awsAddress/banana
 kubectl apply -f apps/apple-banana.yaml -n app
-# awsAddress/flask
+# Route: awsAddress/flask
 kubectl apply -f apps/flask.yaml -n app
-# awsAddress/tea, awsAddress/coffee
+# Routes: awsAddress/tea, awsAddress/coffee
 kubectl apply -f apps/tea-coffee.yaml -n app
 # check ingress
 kubectl describe ingress -n app
@@ -150,13 +148,13 @@ kubectl describe ingress -n app
 #   ----    ------  ----                   ----                      -------
 #   Normal  Sync    3m37s (x2 over 3m46s)  nginx-ingress-controller  Scheduled for sync
 
-
-
 # install jenkins
+# add your awsAddress to the jenkins/jenkins.yaml
+#   jenkinsUrl: http://REDACTED-1903214843.us-east-1.elb.amazonaws.com/jenkins
 kubectl create ns jenkins
 # https://artifacthub.io/packages/helm/jenkinsci/jenkins
 helm upgrade --install my-jenkins jenkinsci/jenkins --version 4.1.13 -n jenkins -f jenkins/jenkins.yaml
-# get password.  user is 'admin'  awsAddress/jenkins
+# get password.  user is 'admin'  Route: awsAddress/jenkins
 kubectl exec --namespace jenkins -it svc/my-jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
 # login and update plugins. restart
 ```
