@@ -1,6 +1,6 @@
 controller:
   # aws address # add you address here. Then uncomment
-  #jenkinsUrl: http://a09f84e2ef8f0460f8e84a8fc1f36ee9-222515066.us-east-1.elb.amazonaws.com
+  jenkinsUrl: http://addbb1a6df1d644109f685feb12730f5-1924653928.us-east-1.elb.amazonaws.com
   # Do not change anything below
   # ingress. tell jenkins your using ingress routes.
   jenkinsUriPrefix: /jenkins
