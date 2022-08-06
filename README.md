@@ -163,7 +163,7 @@ kubectl delete ns app
 
 # destroy all terraform infrastructure 
 terraform destroy --auto-approve
-``` 
+```
 
 8. Double check all items destroyed. # The dashboard's should be zero. Use the search bar at top of screen.
   - ec2
