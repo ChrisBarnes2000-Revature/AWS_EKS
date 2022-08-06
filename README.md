@@ -99,6 +99,24 @@ kubectl describe ingress -n app
 #   Normal  Sync    4m36s (x2 over 4m57s)  nginx-ingress-controller  Scheduled for sync
 
 
+# Name:             flask-ingress
+# Labels:           <none>
+# Namespace:        app
+# Address:          REDACTED.us-east-1.elb.amazonaws.com
+# Ingress Class:    nginx
+# Default backend:  <default>
+# Rules:
+#   Host        Path  Backends
+#   ----        ----  --------
+#   *           
+#               /flask   flask-service:80 (10.0.2.105:5000)
+# Annotations:  ingressClassName: nginx
+# Events:
+#   Type    Reason  Age                    From                      Message
+#   ----    ------  ----                   ----                      -------
+#   Normal  Sync    3m37s (x2 over 3m46s)  nginx-ingress-controller  Scheduled for sync
+
+
 # Name:             cafe-ingress
 # Labels:           <none>
 # Namespace:        app
@@ -117,24 +135,6 @@ kubectl describe ingress -n app
 #   Type    Reason  Age                    From                      Message
 #   ----    ------  ----                   ----                      -------
 #   Normal  Sync    2m37s (x2 over 3m36s)  nginx-ingress-controller  Scheduled for sync
-
-
-# Name:             flask-ingress
-# Labels:           <none>
-# Namespace:        app
-# Address:          REDACTED.us-east-1.elb.amazonaws.com
-# Ingress Class:    nginx
-# Default backend:  <default>
-# Rules:
-#   Host        Path  Backends
-#   ----        ----  --------
-#   *           
-#               /flask   flask-service:80 (10.0.2.105:5000)
-# Annotations:  ingressClassName: nginx
-# Events:
-#   Type    Reason  Age                    From                      Message
-#   ----    ------  ----                   ----                      -------
-#   Normal  Sync    3m37s (x2 over 3m46s)  nginx-ingress-controller  Scheduled for sync
 
 
 
