@@ -46,7 +46,7 @@ terraform
 terraform init
 # dry run to find errors
 terraform plan
-# will make the 
+# will make the infrastructure on aws.
 terraform apply
 ```
 
@@ -72,11 +72,11 @@ kubectl --namespace nginx get services -o wide -w ingress-nginx-chart-controller
 
 # install apps
 kubectl create ns app
-# awsAddress/apple, awsAddress/banana
+# Routes: awsAddress/apple, awsAddress/banana
 kubectl apply -f apps/apple-banana.yaml -n app
-# awsAddress/flask
+# Route: awsAddress/flask
 kubectl apply -f apps/flask.yaml -n app
-# awsAddress/tea, awsAddress/coffee
+# Routes: awsAddress/tea, awsAddress/coffee
 kubectl apply -f apps/tea-coffee.yaml -n app
 # check ingress
 kubectl describe ingress -n app
@@ -139,10 +139,12 @@ kubectl describe ingress -n app
 
 
 # install jenkins
+# add your awsAddress to the jenkins/jenkins.yaml
+#   jenkinsUrl: http://REDACTED-1903214843.us-east-1.elb.amazonaws.com/jenkins
 kubectl create ns jenkins
 # https://artifacthub.io/packages/helm/jenkinsci/jenkins
 helm upgrade --install my-jenkins jenkinsci/jenkins --version 4.1.13 -n jenkins -f jenkins/jenkins.yaml
-# get password.  user is 'admin'  awsAddress/jenkins
+# get password.  user is 'admin'  Route: awsAddress/jenkins
 kubectl exec --namespace jenkins -it svc/my-jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
 # login and update plugins. restart
 ```
