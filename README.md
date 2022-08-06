@@ -161,7 +161,7 @@ kubectl delete ns nginx
 kubectl delete ns jenkins
 kubectl delete ns app
 
-# destroy all terraform infrastructure 
+# destroy all terraform infrastructure
 terraform destroy --auto-approve
 ```
 
