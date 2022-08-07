@@ -96,7 +96,22 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 # login and update plugins. restart
 ```
 
-7. Install Apps (optional)
+7. Install Monitoring Tools (optional)
+
+```sh
+# Add this username & password
+    # To lines 20-1 in `grafana-agent_configMap` & 20-1 & 26-7 in `grafana-logs_Agent_configMap`
+    # username: *****
+    # password: *****
+
+    # To lines 91-2 in `grafana-agent_configMap` & 35-6 in `grafana-logs_Agent_configMap`
+    # username: *****
+    # password: *****
+
+./monitor/Intsall.sh
+```
+
+8. Install Apps (optional)
 
 ```sh
 # install apps
@@ -170,7 +185,7 @@ kubectl describe ingress -n app
 #   Normal  Sync    3m37s (x2 over 3m46s)  nginx-ingress-controller  Scheduled for sync
 ```
 
-8. Destroy Cluster
+9. Destroy Cluster
 
 ```sh
 # Remove helm items:
@@ -186,7 +201,7 @@ kubectl delete ns app
 terraform destroy --auto-approve
 ```
 
-9. Double check all items destroyed. # The dashboard's should be zero. Use the search bar at top of screen.
+10. Double check all items destroyed. # The dashboard's should be zero. Use the search bar at top of screen.
 
 - ec2
 - eks  # cluster should empty
