@@ -6,5 +6,5 @@ authorized_keys
 gac.sh
 avoid
 
-tf.plan
+state.tfplan
 Output.log
