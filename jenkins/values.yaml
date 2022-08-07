@@ -238,16 +238,16 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
+    - git:4.11.3
     - kubernetes:3600.v144b_cd192ca_a_
     - workflow-aggregator:581.v0c46fa_697ffd
-    - git:4.11.3
     - configuration-as-code:1429.v09b_044a_c93de
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
 
   # Set to true to download latest dependencies of any plugin that is requested to have the latest version.
-  installLatestSpecifiedPlugins: false
+  installLatestSpecifiedPlugins: true
 
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
@@ -507,7 +507,7 @@ controller:
   prometheus:
     # If enabled, add the prometheus plugin to the list of plugins to install
     # https://plugins.jenkins.io/prometheus
-    enabled: false
+    enabled: true
     # Additional labels to add to the ServiceMonitor object
     serviceMonitorAdditionalLabels: {}
     # Set a custom namespace where to deploy ServiceMonitor resource
