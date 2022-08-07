@@ -11,7 +11,7 @@ controller:
     # ingress controller watches for this path in URI.
     path: /jenkins
     annotations:
-      kubernetes.io/ingress.class: nginx
+      ingressClassName: nginx
   additionalPlugins:
   - github:1.34.5
   agent:
