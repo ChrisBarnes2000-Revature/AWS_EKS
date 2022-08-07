@@ -163,8 +163,8 @@ kubectl exec --namespace jenkins -it svc/my-jenkins -c jenkins -- /bin/cat /run/
 
 ```sh
 # Remove helm items:
-helm uninstall ingress-nginx-chart
-helm uninstall my-jenkins
+helm uninstall ingress-nginx-chart -n nginx
+helm uninstall my-jenkins -n jenkins
 
 # Remove namespaces and all content
 kubectl delete ns nginx
