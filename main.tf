@@ -2,8 +2,18 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.15.0"
+      version = "~> 4.124.0"
     }
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.12.1"
+    }
+
+    # helm = {
+    #   source  = "hashicorp/helm"
+    #   version = "2.6.0"
+    # }
 
     random = {
       source  = "hashicorp/random"
@@ -43,7 +53,13 @@ provider "kubernetes" {
 # }
 
 provider "aws" {
+  # COE supplies credentials
+  profile = var.profile
+
   region = var.region
+
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
 }
 
 data "aws_availability_zones" "available" {}
