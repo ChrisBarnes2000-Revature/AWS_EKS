@@ -1,8 +1,11 @@
 terraform {
+  # terriform version
+  required_version = "~> 1.2.0"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.124.0"
+      version = "~> 4.25.0"
     }
 
     kubernetes = {
@@ -21,16 +24,29 @@ terraform {
     }
   }
 
-  required_version = "~> 1.2.0"
+  # add state to bucket
+  # backend "s3" {
+  #   bucket = "mybucket"
+  #   key    = "path/to/my/key"
+  #   region = "us-east-1"
+  # }
+
 }
 
+# --------------------------- #
+# -------- Providers -------- #
+# --------------------------- #
 
-data "aws_eks_cluster" "default" {
-  name = module.eks.cluster_id
-}
+provider "aws" {
+  # COE supplies credentials
+  region = var.region
+  shared_credentials_files = {
+    value = "~/.aws/credentials"
+  }
 
-data "aws_eks_cluster_auth" "default" {
-  name = module.eks.cluster_id
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  profile = var.profile
 }
 
 provider "kubernetes" {
@@ -52,24 +68,34 @@ provider "kubernetes" {
 #   }
 # }
 
-provider "aws" {
-  # COE supplies credentials
-  profile = var.profile
-
-  region = var.region
-
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-}
-
-data "aws_availability_zones" "available" {}
-
-locals {
-  # cluster_name = "${var.user_name}-cluster-${random_string.suffix.result}" # random ensures no cluster repeats.
-  cluster_name = "${var.user_name}-cluster"
-}
+# --------------------------- #
+# -------- RESOURCES -------- #
+# --------------------------- #
 
 resource "random_string" "suffix" {
   length  = 6
   special = false
+}
+
+# --------------------------- #
+# --------DATA SOURCE-------- #
+# --------------------------- #
+
+data "aws_availability_zones" "available" {}
+
+data "aws_eks_cluster" "default" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "default" {
+  name = module.eks.cluster_id
+}
+
+# ------------------------- #
+# --------LOCAL VAR-------- #
+# ------------------------- #
+
+locals {
+  # cluster_name = "${var.user_name}-cluster-${random_string.suffix.result}" # random ensures no cluster repeats.
+  cluster_name = "${var.user_name}-cluster"
 }
