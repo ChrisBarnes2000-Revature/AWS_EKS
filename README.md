@@ -318,3 +318,14 @@ worker-nodes
 
 [terraform-provider-helm/issues/893](https://github.com/hashicorp/terraform-provider-helm/issues/893)
 [kubernetes/ingress-nginx-values.yaml](https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml)
+
+---
+
+[aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster)
+[aws_eks_cluster_auth.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth)
+
+
+[terraform-aws-eks-prometheus-node-exporter](https://github.com/lablabs/terraform-aws-eks-prometheus-node-exporter)
+[terraform-aws-eks-kube-state-metrics](https://github.com/lablabs/terraform-aws-eks-kube-state-metrics)
+
+[**learn-terraform-by-deploying-jenkins-server-on-aws**](https://www.freecodecamp.org/news/learn-terraform-by-deploying-jenkins-server-on-aws/)

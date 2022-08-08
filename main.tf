@@ -26,9 +26,11 @@ terraform {
 
   # add state to bucket. this has to be applied after bucket is created.
   # backend "s3" {
-  #   region = var.region
-  #   bucket = "terra-ptkgux"
-  #   key    = "terraform.tfstate"
+  #   bucket         = "<REPLACE_WITH_YOUR_BUCKET_NAME>"
+  #   dynamodb_table = "<REPLACE_WITH_YOUR_DYNAMODB_TABLENAME>"
+  #   key            = "terraform.tfstate"
+  #   region         = var.region
+  #   encrypt        = true
   # }
 
 }
@@ -111,7 +113,9 @@ resource "aws_s3_bucket_acl" "terraform-state" {
 # --------DATA SOURCE-------- #
 # --------------------------- #
 
-data "aws_availability_zones" "available" {}
+data "aws_availability_zones" "available" {
+  state = "available"
+}
 
 data "aws_eks_cluster" "default" {
   name = module.eks.cluster_id

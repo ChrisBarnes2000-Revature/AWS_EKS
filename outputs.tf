@@ -24,3 +24,15 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = local.cluster_name
 }
+
+# output "cluster_ca_certificate" {
+#   value = aws_eks_cluster.this.certificate_authority[0].data
+# }
+
+# output "aws-keys" {
+#   value = {
+#     access_key = aws_iam_access_key.eks-access-key.id
+#     secret_key = aws_iam_access_key.eks-access-key.secret
+#   }
+#   sensitive = true
+# }
