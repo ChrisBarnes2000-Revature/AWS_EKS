@@ -6,23 +6,22 @@
 2. Configure `kubectl` to point at the correct cluster.
 3. The `cluster` must also have `tiller` and `docker` installed on the `'default' namespace`
 4. For proper permissions to run a script use `chmod +x Script-Name.sh` (as/if needed)
-
 5. Update Usernanmes & Passwords
 
-```sh
-# Add thes usernames & passwords To:
-  # Lines 91-92 in `configMap_grafana-agent`
-  #       35-56 in `configMap_grafana-agent-logs`
-  #       51-52 in `configMap_grafana-agent-jenkins`
-  # username: 2***********6
-  # password: eyJ*****4NX0=
+  ```sh
+  # Add thes usernames & passwords To:
+    # Lines 91-92 in `configMap_grafana-agent`
+    #       35-56 in `configMap_grafana-agent-logs`
+    #       51-52 in `configMap_grafana-agent-jenkins`
+    # username: 2***********6
+    # password: eyJ*****4NX0=
 
-  # Lines 20-21           in `configMap_grafana-agent`
-  #       20-21 & 26-7    in `configMap_grafana-agent-logs`
-  #       19-20 & 42-3    in `configMap_grafana-agent-jenkins`
-  # username: 5***********2
-  # password: eyJ*****4NX0=
-```
+    # Lines 20-21           in `configMap_grafana-agent`
+    #       20-21 & 26-7    in `configMap_grafana-agent-logs`
+    #       19-20 & 42-3    in `configMap_grafana-agent-jenkins`
+    # username: 5***********2
+    # password: eyJ*****4NX0=
+  ```
 
 ## Install on Kubernetes Cluster (AWS-EKS)
 
@@ -32,7 +31,7 @@
 
 `All Done!` You've just deployed monitoring to your Grafana Cloud!
 
-## Step By Step Install
+## OR Your Can Install Them Step By Step
 
 1. Create Metrics Agent Configmap.
 
