@@ -238,3 +238,77 @@ alias Nginx-Ingress="kubectl create ns nginx && helm repo add ingress-nginx http
 # Deploy Jenkins Server
 alias Jenkins-Helm="kubectl create ns jenkins && helm repo add jenkins https://charts.jenkins.io && helm repo update && helm upgrade --install jenkins jenkins/jenkins --version 4.1.14 -n jenkins -f jenkins/jenkins.yaml && kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo"
 ```
+
+<!--
+Ports
+
+8080 - Jenkins
+9090 - Prometheus
+3000 - Grfana
+4000 - Frontend
+5000 - Backend API (api/product)
+
+eks-cluster
+443:443 - worker nodes to communicate with the cluster
+1024:65535 - cluster API Server to communicate with the worker
+
+vpc
+443:443 - ingress
+80:80 - ingress
+0:0 - egress
+0:65535 - ingress
+1025:65535 - ingress
+0:0 - egress
+0:65535 - ingress
+0:65535 - egress
+
+worker-nodes
+0:0 - egress
+0:65535 - ingress
+1025:65535 - ingress
+-->
+
+## Resources
+
+- Ashish Patel's [Github](https://github.com/a-patel) & [Medium](https://iamaashishpatel.medium.com/)
+
+- Kubernetes
+
+  - [Kubernetes (K8s) Overview](https://medium.com/devops-mojo/kubernetes-k8s-overview-what-is-kubernetes-why-kubernetes-introduction-to-kubernetes-da92ee11c8fb)
+  - [Kubernetes — Ingress Overview](https://medium.com/devops-mojo/kubernetes-ingress-overview-what-is-kubernetes-ingress-introduction-to-k8s-ingress-b0f81525ffe2)
+  - [Kubernetes — Services Overview](https://medium.com/devops-mojo/kubernetes-services-overview-k8s-service-introduction-why-and-what-are-kubernetes-services-how-works-e6fd4fd4a51a)
+  - [Kubernetes — Architecture Overview](https://medium.com/devops-mojo/kubernetes-architecture-overview-introduction-to-k8s-architecture-and-understanding-k8s-cluster-components-90e11eb34ccd)
+  - [Kubernetes — Service Types Overview](https://medium.com/devops-mojo/kubernetes-service-types-overview-introduction-to-k8s-service-types-what-are-types-of-kubernetes-services-ea6db72c3f8c)
+  - [Kubernetes — Objects (Resources/Kinds) Overview](https://medium.com/devops-mojo/kubernetes-objects-resources-overview-introduction-understanding-kubernetes-objects-24d7b47bb018)
+  - [Kubernetes — Role-Based Access Control (RBAC) Overview](https://medium.com/devops-mojo/kubernetes-role-based-access-control-rbac-overview-introduction-rbac-with-kubernetes-what-is-2004d13195df)
+  - [Kubernetes — Storage Overview — PV, PVC and Storage Class](https://medium.com/devops-mojo/kubernetes-storage-options-overview-persistent-volumes-pv-claims-pvc-and-storageclass-sc-k8s-storage-df71ca0fccc3)
+  - [Kubernetes — Probes (Liveness, Readiness, and Startup) Overview](https://medium.com/devops-mojo/kubernetes-probes-liveness-readiness-startup-overview-introduction-to-probes-types-configure-health-checks-206ff7c24487)
+  - [Kubernetes — Difference between Deployment and StatefulSet in K8s](https://medium.com/devops-mojo/kubernetes-difference-between-deployment-and-statefulset-in-k8s-deployments-vs-statefulsets-855f9e897091)
+
+- AWS
+
+  - [AWS — Organizations Overview](https://medium.com/awesome-cloud/aws-organizations-overview-introduction-to-what-is-aws-organization-multi-accounts-consolidated-billing-5009efc42b07)
+  - [AWS — VPC Route Table Overview](https://medium.com/awesome-cloud/aws-vpc-route-table-overview-intro-getting-started-guide-5b5d65ec875f)
+  - [AWS — Amazon RDS Proxy Overview](https://medium.com/awesome-cloud/aws-amazon-rds-proxy-overview-introduction-to-amazon-rds-proxy-what-is-aws-rds-proxy-b7d29b2a83c2)
+  - [AWS — Amazon ElastiCache Overview](https://medium.com/awesome-cloud/aws-amazon-elasticache-overview-introduction-to-aws-elasticache-for-redis-memcached-f7165c3c2e5f)
+  - [AWS — Amazon EKS vs ECS — Comparison](https://medium.com/awesome-cloud/aws-amazon-eks-vs-amazon-ecs-comparison-difference-between-eks-and-ecs-7451abd23859)
+  - [AWS — Network Load Balancer (NLB) Overview](https://medium.com/awesome-cloud/aws-network-load-balancer-nlb-overview-introduction-to-amazon-nlb-what-is-aws-nlb-elb-837749c20063)
+  - [AWS — Elastic Load Balancer (ELB) Overview](https://medium.com/awesome-cloud/aws-elastic-load-balancer-elb-overview-introduction-to-aws-elb-alb-nlb-gwlb-e2820fe8fe27)
+  - [AWS — Application Load Balancer (ALB) Overview](https://medium.com/awesome-cloud/aws-application-load-balancer-alb-overview-introduction-to-amazon-alb-what-is-aws-alb-b5280f625153)
+  - [AWS — Amazon RDS vs Amazon EC2 Relational Databases — Comparison](https://medium.com/awesome-cloud/aws-amazon-rds-vs-amazon-ec2-relational-databases-comparison-b28eb0802355)
+  - [AWS — Difference between Application load balancer (ALB) and Network load balancer (NLB)](https://medium.com/awesome-cloud/aws-difference-between-application-load-balancer-and-network-load-balancer-cb8b6cd296a4)
+
+- Terraform
+
+  - [Terraform — Overview](https://medium.com/devops-mojo/terraform-overview-introduction-to-terraform-what-is-terraform-843bf65b83fb)
+  - [Terraform — Best Practices](https://medium.com/devops-mojo/terraform-best-practices-top-best-practices-for-terraform-configuration-style-formatting-structure-66b8d938f00c)
+  - [Terraform — Workspaces Overview](https://medium.com/devops-mojo/terraform-workspaces-overview-what-is-terraform-workspace-introduction-getting-started-519848392724)
+  - [Terraform — Remote States Overview](https://medium.com/devops-mojo/terraform-remote-states-overview-what-is-terraform-remote-state-storage-introduction-936223a0e9d0)
+  - [Terraform — Provision Amazon EKS Cluster using Terraform](https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594)
+
+- Other
+  - [Prometheus — Overview](https://medium.com/devops-mojo/prometheus-overview-what-is-prometheus-introduction-92e064cff606)
+  - [Helm — Helm Charts Overview](https://medium.com/devops-mojo/helm-charts-overview-introduction-to-helm-101-ef6296ecff87)
+
+[terraform-provider-helm/issues/893](https://github.com/hashicorp/terraform-provider-helm/issues/893)
+[kubernetes/ingress-nginx-values.yaml](https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml)
