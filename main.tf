@@ -24,11 +24,11 @@ terraform {
     }
   }
 
-  # add state to bucket
+  # add state to bucket. this has to be applied after bucket is created.
   # backend "s3" {
-  #   bucket = "mybucket"
-  #   key    = "path/to/my/key"
-  #   region = "us-east-1"
+  #   region = var.region
+  #   bucket = "terra-ptkgux"
+  #   key    = "terraform.tfstate"
   # }
 
 }
@@ -75,6 +75,36 @@ provider "kubernetes" {
 resource "random_string" "suffix" {
   length  = 6
   special = false
+  upper   = false
+  number  = false
+  lower   = true
+}
+
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = local.s3_name
+
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
+
+  versioning_configuration {
+    status = "Enabled"
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = data.aws_kms_alias.s3.arn
+        sse_algorithm     = "aws:kms" #"AES256"
+      }
+    }
+  }
+}
+
+resource "aws_s3_bucket_acl" "terraform-state" {
+  bucket = aws_s3_bucket.terraform-state.id
+  acl    = "private"
 }
 
 # --------------------------- #
@@ -91,6 +121,11 @@ data "aws_eks_cluster_auth" "default" {
   name = module.eks.cluster_id
 }
 
+# get key arn
+data "aws_kms_alias" "s3" {
+  name = "alias/terraform_state_key"
+}
+
 # ------------------------- #
 # --------LOCAL VAR-------- #
 # ------------------------- #
@@ -98,4 +133,6 @@ data "aws_eks_cluster_auth" "default" {
 locals {
   # cluster_name = "${var.user_name}-cluster-${random_string.suffix.result}" # random ensures no cluster repeats.
   cluster_name = "${var.user_name}-cluster"
+
+  s3_name = "terra-${random_string.suffix.result}"
 }
