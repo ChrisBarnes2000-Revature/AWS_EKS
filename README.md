@@ -99,16 +99,22 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 7. Install Monitoring Tools (optional)
 
 ```sh
-# Add this username & password
-    # To lines 20-1 in `grafana-agent_configMap` & 20-1 & 26-7 in `grafana-logs_Agent_configMap`
-    # username: *****
-    # password: *****
+# Add thes usernames & passwords To:
+    # Lines 91-92 in `configMap_grafana-agent`
+    #       35-56 in `configMap_grafana-agent-logs`
+    #       51-52 in `configMap_grafana-agent-jenkins`
+    # username: 2***********6
+    # password: eyJ*****4NX0=
 
-    # To lines 91-2 in `grafana-agent_configMap` & 35-6 in `grafana-logs_Agent_configMap`
-    # username: *****
-    # password: *****
+    # Lines 20-21           in `configMap_grafana-agent`
+    #       20-21 & 26-7    in `configMap_grafana-agent-logs`
+    #       19-20 & 42-3    in `configMap_grafana-agent-jenkins`
+    # username: 5***********2
+    # password: eyJ*****4NX0=
 
-./monitor/Intsall.sh
+# For proper permissions to run a script use
+# `chmod +x Script-Name.sh` (as/if needed)
+./monitor/Intsall_All.sh
 ```
 
 8. Install Apps (optional)
