@@ -10,8 +10,16 @@ terraform {
       version = "3.1.0"
     }
   }
-
+  # terriform version
   required_version = "~> 1.2.0"
+
+  # add state to bucket
+  # backend "s3" {
+  #   bucket = "mybucket"
+  #   key    = "path/to/my/key"
+  #   region = "us-east-1"
+  # }
+
 }
 
 
