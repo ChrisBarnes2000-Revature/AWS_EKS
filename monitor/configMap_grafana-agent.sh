@@ -9,15 +9,12 @@ data:
     metrics:
       wal_directory: /var/lib/agent/wal
       global:
-        scrape_interval: 15s # 60s
-        evaluation_interval: 15s
-        scrape_timeout: 10s
+        scrape_interval: 60s
         external_labels:
           cluster: cloud
       configs:
         - name: integrations
           remote_write:
-            # - url: http://cortex:9009/api/prom/push
             - url: https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push
               basic_auth:
                 username: *****
@@ -77,13 +74,6 @@ data:
                   regex: kube-state-metrics
                   source_labels:
                     - __meta_kubernetes_pod_label_app_kubernetes_io_name
-            - job_name: integrations/jenkins
-              metrics_path: /prometheus/
-              static_configs:
-                - targets: ['http://a9b460f8f4c734d6c8ca3dee15115ba6-1718504656.us-east-1.elb.amazonaws.com:8080'] # 'localhost:8080' '192.168.32.13:8080'
-            - job_name: 'prometheus'
-              static_configs:
-                - targets: ['http://a9b460f8f4c734d6c8ca3dee15115ba6-1718504656.us-east-1.elb.amazonaws.com:9090'] # localhost:9090
 
     integrations:
       eventhandler:
@@ -105,7 +95,3 @@ data:
           target_config:
             sync_period: 10s
 EOF
-
-# sudo systemctl restart grafana-agent.service
-
-# NAMESPACE=default /bin/sh -c "ARCH=amd64 GCLOUD_STACK_ID='407568' GCLOUD_API_KEY='eyJrIjoiMTY3NzI3OGVjODQ2ZDI5ODEzMTI4YjhkNWVkNzljNjIzNzAwYTQ4ZCIsIm4iOiJzdGFjay00MDc1NjgtZWFzeXN0YXJ0LWdjb20iLCJpZCI6Njg1Mjg1fQ==' GCLOUD_API_URL='https://integrations-api-us-central.grafana.net' $(curl -fsSL https://raw.githubusercontent.com/grafana/agent/release/production/grafanacloud-install.sh)" | kubectl apply -f -

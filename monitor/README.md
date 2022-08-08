@@ -1,60 +1,76 @@
 # Kubernetes Monitoring (Grafan, Prometheus, Loki)
 
-## Steps to install on kubernetes cluster
-<!--
-- Have `kubectl` installed and pointing to the correct cluster.
-- Also requires `helm`, `curl`, and `envsubst` on `local systems`.
-- The `cluster` must also have `tiller` and `docker` installed.
-  - These are all installed into the `'default' namespace`,
-  - though this can be changed with a simple `'ctrl + H'` to
-  - whichever namespace you prefer.
+## Requirements
 
-if needed run
-chmod +x Script-Name.sh
--->
+1. Make sure you have `kubectl`, `helm`, `curl`, & `envsubst` on `local systems`.
+2. Configure `kubectl` to point at the correct cluster.
+3. The `cluster` must also have `tiller` and `docker` installed on the `'default' namespace`
+4. For proper permissions to run a script use `chmod +x Script-Name.sh` (as/if needed)
 
-1. Create metrics agent configmap.
+5. Update Usernanmes & Passwords
 
 ```sh
-grafana-agent_configmap.sh
+# Add thes usernames & passwords To:
+  # Lines 91-92 in `configMap_grafana-agent`
+  #       35-56 in `configMap_grafana-agent-logs`
+  #       51-52 in `configMap_grafana-agent-jenkins`
+  # username: 2***********6
+  # password: eyJ*****4NX0=
+
+  # Lines 20-21           in `configMap_grafana-agent`
+  #       20-21 & 26-7    in `configMap_grafana-agent-logs`
+  #       19-20 & 42-3    in `configMap_grafana-agent-jenkins`
+  # username: 5***********2
+  # password: eyJ*****4NX0=
+```
+
+## Install on Kubernetes Cluster (AWS-EKS)
+
+```sh
+./Install_ALL.sh
+```
+
+`All Done!` You've just deployed monitoring to your Grafana Cloud!
+
+## Step By Step Install
+
+1. Create Metrics Agent Configmap.
+
+```sh
+./configMap_grafana-agent.sh
 ```
 
 2. Create Agent StatefulSet
 
 ```sh
-grafana-stateful_set.sh
+./statefulSet_grafana.sh
 ```
 
-3. Deploy kubernetes state metrics.
+3. Deploy Kubernetes State Metrics (KSM).
 
 ```sh
-grafana-kubernetes-state-metrics.sh
+./helmChart_grafana-ksm.sh
 ```
 
-4. Deploy logging agent's configmap.
+4. Deploy Logging Agent's Configmap.
 
 ```sh
-grafana-logs_Agent_configMap.sh
+./configMap_grafana-agent-logs.sh
 ```
 
-5. This finally installs the Grafana agent to the cluster
-   and configures the RBAC permissions.
+5. This Finally Install The Grafana Agent To The Cluster & Configures The RBAC Permissions.
 
 ```sh
-grafana-agent_daemonset.sh
+./daemonset_grafana-agent.sh
 ```
 
-All done! You've just deployed monitoring to your Grafana Cloud!
-
-Lazy Run (All In One)
+6. Deploy Jenkins Agent's Configmap.
 
 ```sh
-Install.sh
-
-or
-
-grafana-agent_configmap.sh && grafana-stateful_set.sh && grafana-kubernetes-state-metrics.sh && grafana-logs_Agent_configMap.sh && grafana-agent_daemonset.sh
+./configMap_grafana-agent-jenkins.sh
 ```
+
+`All Done!` You've just deployed monitoring to your Grafana Cloud!
 
 ## Resources
 
