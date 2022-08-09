@@ -9,8 +9,8 @@ resource "aws_security_group" "worker_group_node" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "10.0.0.0/8",
-      var.my_home_ip
+      var.my_home_ip,
+      "10.0.0.0/8"
     ]
   }
 }
@@ -26,7 +26,6 @@ resource "aws_security_group" "all_sg" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "192.168.0.0/16",
       "192.168.0.0/16",
       "172.16.0.0/12"
     ]

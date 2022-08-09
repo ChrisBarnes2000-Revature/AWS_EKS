@@ -52,13 +52,13 @@ module "eks" {
     default_node_group = {
       # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
       # so we need to disable it to use the default template provided by the AWS EKS managed node group service
-      min_size                             = 1
-      max_size                             = 1
-      desired_size                         = 1
-      create_launch_template               = false
       launch_template_name                 = ""
-      instance_types                       = ["t3.medium"]
-      ami_id                               = "ami-052efd3df9dad4825" # ubuntu 22.04 LTS server optimized for eks.
+      create_launch_template               = false
+      ami_id                               = var.ami_id
+      min_size                             = var.cluster_min
+      max_size                             = var.cluster_max
+      desired_size                         = var.desired_size
+      instance_types                       = var.instance_type
       node_security_group_additional_rules = [aws_security_group.worker_group_node.id]
       # ami_type               = "AL2_x86_64" # Amazon linux ec2.
       # disk_size              = 50
