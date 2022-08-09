@@ -34,7 +34,7 @@ variable "profile" {
 
 variable "region" {
   description = "The aws region. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
-  default     = "us-west-1"
+  default     = "us-west-2"
   type        = string
 }
 
@@ -134,12 +134,12 @@ variable "eks_vpc_cidr" {
 
 variable "ec2_vpc_cidr" {
   description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
-  default     = "10.0.0.0/16"
-  type        = string
+  default     = ["192.30.252.0/22", "185.199.108.0/22", "140.82.112.0/20", "143.55.64.0/20"] # github webhooks ip's. Add your ip as well
+  type        = list(string)
 }
 
 variable "availability_zones" {
   description = ""
   type        = list(string)
-  default     = ["us-west-1a", "us-west-1b", "us-west-1c", "us-west-1d", "us-west-1e"]
+  default     = ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d", "us-west-2e"]
 }

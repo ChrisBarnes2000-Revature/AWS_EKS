@@ -50,6 +50,10 @@ cd AWS_EKS
 
 1. You must have `aws` installed:
 
+- <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>
+- <https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html>
+- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html>
+
 ```sh
 aws sts get-caller-identity  # make sure your NOT 2206-devops-user
 

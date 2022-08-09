@@ -10,7 +10,7 @@ terraform {
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.12.1"
+      version = "2.10.0"
     }
 
     # helm = {
@@ -116,6 +116,18 @@ resource "aws_s3_bucket_versioning" "versioning_terraform-state" {
   }
 }
 
+# encrypt data with key
+resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" {
+  bucket = aws_s3_bucket.terraform-state.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = data.aws_kms_alias.s3.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
 # --------------------------- #
 # --------DATA SOURCE-------- #
 # --------------------------- #
@@ -134,7 +146,7 @@ data "aws_eks_cluster_auth" "default" {
 
 # get key arn
 data "aws_kms_alias" "s3" {
-  name = "alias/terraform_state_key"
+  name = "alias/aws/s3"
 }
 
 # ------------------------- #
