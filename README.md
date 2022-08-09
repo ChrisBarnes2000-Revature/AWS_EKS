@@ -51,11 +51,11 @@ cd AWS_EKS
 1. You must have `aws` installed:
 
 ```sh
-  aws sts get-caller-identity  # make sure your NOT 2206-devops-user
+aws sts get-caller-identity  # make sure your NOT 2206-devops-user
 
-  # if your 2206-devops-user, reset credentials
-  aws configure
-  # To get new aws credentials, login / click on your name / security credentials / access keys / create new access key.
+# if your 2206-devops-user, reset credentials
+aws configure
+# To get new aws credentials, login / click on your name / security credentials / access keys / create new access key.
 ```
 
 2. Install Terraform
@@ -124,7 +124,7 @@ cp sample-secrets.tfvars secrets.tfvars
 # Then Adjust The Values As Your Desire.
 ```
 
-1. Run terraform
+4. Run terraform
 
 ```sh
 # Download & initialize modules from terraform configuration
@@ -183,21 +183,21 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 
 <p align="center"><img src="images/Pipeline_Overview_Backend.png" alt="Nginx ingress controller example" width="800px"></p>
 
-1. Install Monitoring Tools (optional)
+7. Install Monitoring Tools (optional)
 
 ```sh
 # Add thes usernames & passwords To:
-    # Lines 91-92 in `configMap_grafana-agent`
-    #       35-56 in `configMap_grafana-agent-logs`
-    #       51-52 in `configMap_grafana-agent-jenkins`
-    # username: 2***********6
-    # password: eyJ*****4NX0=
+  # Lines 91-92 in `configMap_grafana-agent`
+  #       35-56 in `configMap_grafana-agent-logs`
+  #       51-52 in `configMap_grafana-agent-jenkins`
+  # username: 2***********6
+  # password: eyJ*****4NX0=
 
-    # Lines 20-21           in `configMap_grafana-agent`
-    #       20-21 & 26-7    in `configMap_grafana-agent-logs`
-    #       19-20 & 42-3    in `configMap_grafana-agent-jenkins`
-    # username: 5***********2
-    # password: eyJ*****4NX0=
+  # Lines 20-21           in `configMap_grafana-agent`
+  #       20-21 & 26-7    in `configMap_grafana-agent-logs`
+  #       19-20 & 42-3    in `configMap_grafana-agent-jenkins`
+  # username: 5***********2
+  # password: eyJ*****4NX0=
 
 # For proper permissions to run a script use
 # `chmod +x Script-Name.sh` (as/if needed)
