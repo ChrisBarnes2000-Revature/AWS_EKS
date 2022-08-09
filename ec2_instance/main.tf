@@ -20,7 +20,7 @@ resource "aws_vpc" "prod-vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "production-vpc"
+    Name = "my-vpc"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.prod-vpc.id
 
   tags = {
-    Name = "prod-gateway"
+    Name = "my-gateway"
   }
 }
 
@@ -42,13 +42,13 @@ resource "aws_route_table" "example" {
     gateway_id = aws_internet_gateway.gw.id
   }
 
-  route {
-    ipv6_cidr_block = "::/0"
-    gateway_id      = aws_internet_gateway.gw.id
-  }
+  # route {
+  #   ipv6_cidr_block = "::/0"
+  #   gateway_id      = aws_internet_gateway.gw.id
+  # }
 
   tags = {
-    Name = "example-route-table"
+    Name = "my-route-table"
   }
 }
 
@@ -59,7 +59,7 @@ resource "aws_subnet" "subnet-1" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "prod-subnet"
+    Name = "my-subnet"
   }
 }
 
@@ -69,47 +69,35 @@ resource "aws_route_table_association" "a" {
   route_table_id = aws_route_table.example.id
 }
 
+variable "ingressrules" {
+  type    = list(number)
+  default = [8080, 22]
+}
+
 # 6. Create Security Group to allow port 22,80,443
 resource "aws_security_group" "sg" {
-  name        = "allow_web_traffic"
-  description = "Allow web inbound traffic"
+  name        = "Allow web traffic"
+  description = "inbound ports for ssh and standard http and everything outbound"
   vpc_id      = aws_vpc.prod-vpc.id
-
-  ingress {
-    description      = "HTTPS"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["24.245.76.148/32"]
-    ipv6_cidr_blocks = ["24.245.76.148/32"]
+  dynamic "ingress" {
+    iterator = port
+    for_each = var.ingressrules
+    content {
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = "TCP"
+      cidr_blocks = [var.my_ip, "192.30.252.0/22", "185.199.108.0/22", "140.82.112.0/20", "143.55.64.0/20"]
+      # github webhooks ip's
+    }
   }
-  ingress {
-    description      = "HTTP"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["24.245.76.148/32"]
-    ipv6_cidr_blocks = ["24.245.76.148/32"]
-  }
-  ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["24.245.76.148/32"]
-    ipv6_cidr_blocks = ["24.245.76.148/32"]
-  }
-
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-
   tags = {
-    Name = "allow_web"
+    Name = "my-sg"
   }
 }
 
@@ -138,26 +126,26 @@ resource "aws_eip" "one" {
 
 # 9. Create Ubuntu server and install/enable nginx
 resource "aws_instance" "ubuntu_server" {
-  ami               = "ami-08d4ac5b634553e16"
-  instance_type     = "t2.micro"
-  availability_zone = "us-east-1a"
+  ami               = var.ec2_id
+  instance_type     = var.ec2_size
+  availability_zone = "${var.region}a"
   # key_name          = "EC2_Key"
-  key_name = aws_key_pair.ubuntu-key.key_name
+  key_name = aws_key_pair.id_rsa.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.one.id
     device_index         = 0
   }
 
-  user_data = file("install_nginx.sh")
+  user_data = file("install_jenkins.sh")
 
   tags = {
-    Name = var.instance_name
+    Name = "my-linux-ec2"
   }
 }
 
 # 10. ssh key pair
-resource "aws_key_pair" "ubuntu-key" {
-  key_name   = "ubuntu-key"
-  public_key = file(".ssh/id_rsa.pub")
+resource "aws_key_pair" "id_rsa" {
+  key_name   = "./.ssh/id_rsa"
+  public_key = file("./.ssh/id_rsa.pub")
 }
