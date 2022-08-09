@@ -143,9 +143,3 @@ variable "availability_zones" {
   type        = list(string)
   default     = ["us-west-1a", "us-west-1b", "us-west-1c", "us-west-1d", "us-west-1e"]
 }
-
-variable "azs" {
-  description = ""
-  type        = list(string)
-  default     = slice(data.aws_availability_zones.available.names, 0, 2)
-}

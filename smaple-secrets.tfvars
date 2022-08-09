@@ -28,4 +28,3 @@ subnet_cidr_bits         = 8
 eks_vpc_cidr             = ["10.0.0.0/16", "172.0.0.0/16"]
 ec2_vpc_cidr             = ["192.30.252.0/22", "185.199.108.0/22", "140.82.112.0/20", "143.55.64.0/20"] # github webhooks ip's. Add your ip as well
 availability_zones       = ["us-west-1a", "us-west-1b", "us-west-1c", "us-west-1d", "us-west-1e"]
-azs                      = slice(data.aws_availability_zones.available.names, 0, 2)
