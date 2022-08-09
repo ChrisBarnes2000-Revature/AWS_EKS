@@ -38,7 +38,7 @@ Below is the block diagram of how the pipeline should look like. _The blocks in 
 
 <p align="center"><img src="images/Flow-To-Complete.png" width="800px"></p>
 
-<p align="center"><img src="images/Project_OverView.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/Project_OverView.png" alt="Porject Overview" width="800px"></p>
 
 ## Below is the list of tasks where your help is required:
 
@@ -110,11 +110,11 @@ alias Nginx-Ingress="kubectl create ns nginx && helm repo add ingress-nginx http
 alias Jenkins-Helm="kubectl create ns jenkins && helm repo add jenkins https://charts.jenkins.io && helm repo update && helm upgrade --install jenkins jenkins/jenkins --version 4.1.14 -n jenkins -f jenkins/jenkins.yaml && kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo"
 ```
 
-<p align="center"><img src="images/Terraform_OverView.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/Terraform_OverView.png" alt="Terraform Overview" width="800px"></p>
 
-<p align="center"><img src="images/AWS_IAM_OverView.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/AWS_IAM_OverView.png" alt="AWS IAM Overview" width="800px"></p>
 
-<p align="center"><img src="images/EC2_SSH_OverView.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/EC2_SSH_OverView.png" alt="EC2 SSH Overview" width="800px"></p>
 
 3. Add your info in the terraform `secrefts.tfvars` file.
 
@@ -175,15 +175,15 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 
 <p align="center"><img src="images/nginx-ingress-controller.png" alt="Nginx ingress controller example" width="800px"></p>
 
-<p align="center"><img src="images/Pipeline_Overview.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/Pipeline_OverView.png" alt="Pipeline Overview" width="800px"></p>
 
-<p align="center"><img src="images/SonarCloud.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/SonarCloud.png" alt="Sonar Cloud" width="800px"></p>
 
-<p align="center"><img src="images/Pipeline_Overview_frontend.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/Pipeline_OverView_Frontend.png" alt="Pipeline Frontend Overview" width="800px"></p>
 
-<p align="center"><img src="images/Pipeline_Overview_Backend.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/Pipeline_OverView_Backend.png" alt="Pipeline Backend Overview" width="800px"></p>
 
-7. Install Monitoring Tools (optional)
+1. Install Monitoring Tools (optional)
 
 ```sh
 # Add thes usernames & passwords To:
@@ -204,7 +204,7 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 ./monitor/Intsall_All.sh
 ```
 
-<p align="center"><img src="images/Monitoring_OverView.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/Monitoring_OverView.png" alt="Monitoring Overview" width="800px"></p>
 
 8. Install Apps (optional)
 
@@ -280,7 +280,7 @@ kubectl describe ingress -n app
 #   Normal  Sync    3m37s (x2 over 3m46s)  nginx-ingress-controller  Scheduled for sync
 ```
 
-<p align="center"><img src="images/POD_Orchestration.png" alt="Nginx ingress controller example" width="800px"></p>
+<p align="center"><img src="images/POD_Orchestration.png" alt="Pod Orchestration" width="800px"></p>
 
 9. Destroy Cluster
 
