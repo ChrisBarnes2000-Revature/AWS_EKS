@@ -68,19 +68,19 @@ variable "tags" {
 #
 #
 
-variable "max_size" {
+variable "cluster_max_size" {
   description = ""
   type        = number
   default     = 3
 }
 
-variable "min_size" {
+variable "cluster_min_size" {
   description = ""
   type        = number
   default     = 1
 }
 
-variable "desired_size" {
+variable "cluster_desired_size" {
   description = ""
   type        = number
   default     = 2

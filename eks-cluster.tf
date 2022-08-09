@@ -55,9 +55,9 @@ module "eks" {
       launch_template_name                 = ""
       create_launch_template               = false
       ami_id                               = var.ami_id
-      min_size                             = var.cluster_min
-      max_size                             = var.cluster_max
-      desired_size                         = var.desired_size
+      min_size                             = var.cluster_min_size
+      max_size                             = var.cluster_max_size
+      desired_size                         = var.cluster_desired_size
       instance_types                       = var.instance_type
       node_security_group_additional_rules = [aws_security_group.worker_group_node.id]
       # ami_type               = "AL2_x86_64" # Amazon linux ec2.

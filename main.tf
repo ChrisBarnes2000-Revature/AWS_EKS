@@ -41,14 +41,10 @@ terraform {
 
 provider "aws" {
   # COE supplies credentials
-  region = var.region
-  shared_credentials_files = {
-    value = "~/.aws/credentials"
-  }
-
+  region     = var.region
+  profile    = var.profile
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
-  profile = var.profile
 }
 
 provider "kubernetes" {
@@ -82,31 +78,42 @@ resource "random_string" "suffix" {
   lower   = true
 }
 
-resource "aws_s3_bucket" "terraform_state" {
+# resource "aws_s3_bucket" "terraform_state" {
+#   bucket = local.s3_name
+
+#   # lifecycle {
+#   #   prevent_destroy = true
+#   # }
+
+#   versioning_configuration {
+#     status = "Enabled"
+#     enabled = true
+#   }
+
+#   server_side_encryption_configuration {
+#     rule {
+#       apply_server_side_encryption_by_default {
+#         kms_master_key_id = data.aws_kms_alias.s3.arn
+#         sse_algorithm     = "aws:kms" #"AES256"
+#       }
+#     }
+#   }
+# }
+
+resource "aws_s3_bucket" "terraform-state" {
   bucket = local.s3_name
-
-  # lifecycle {
-  #   prevent_destroy = true
-  # }
-
-  versioning_configuration {
-    status = "Enabled"
-    enabled = true
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = data.aws_kms_alias.s3.arn
-        sse_algorithm     = "aws:kms" #"AES256"
-      }
-    }
-  }
 }
 
 resource "aws_s3_bucket_acl" "terraform-state" {
   bucket = aws_s3_bucket.terraform-state.id
   acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "versioning_terraform-state" {
+  bucket = aws_s3_bucket.terraform-state.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 # --------------------------- #
